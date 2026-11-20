@@ -5,8 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SP0TIFY CR4CK BY L0RM4SS</title>
+
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -15,19 +18,39 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: #080b09;
+    background: #030604;
     color: white;
     font-family: Arial, sans-serif;
+    overflow: hidden;
+    position: relative;
 }
 
+/* MATRIX BACKGROUND */
+
+#matrix {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+}
+
+/* MAIN CARD */
+
 .card {
+    position: relative;
+    z-index: 2;
     width: 100%;
     max-width: 420px;
     padding: 35px 28px;
     border: 1px solid #1e3828;
     border-radius: 22px;
-    background: linear-gradient(145deg,#151e18,#0c100e);
-    box-shadow: 0 0 60px #1ed76012;
+    background: rgba(12, 18, 14, 0.90);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 0 60px #1ed76018;
     text-align: center;
 }
 
@@ -42,11 +65,19 @@ body {
     color: #071109;
     font-size: 28px;
     font-weight: bold;
+    box-shadow: 0 0 25px #1ed76055;
 }
 
 h1 {
     font-size: 25px;
     margin: 0 0 10px;
+}
+
+h2 {
+    font-size: 15px;
+    color: #1ed760;
+    margin: 0 0 22px;
+    letter-spacing: 2px;
 }
 
 .description {
@@ -55,6 +86,15 @@ h1 {
     line-height: 1.6;
     margin-bottom: 25px;
 }
+
+/* POWERSHELL */
+
+.powershell {
+    color: #38bdf8;
+    font-weight: 800;
+}
+
+/* INSTAGRAM GRADIENT */
 
 .instagram {
     display: inline-block;
@@ -74,7 +114,6 @@ h1 {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-
     transition: .3s;
 }
 
@@ -82,6 +121,8 @@ h1 {
     filter: brightness(1.3);
     transform: scale(1.05);
 }
+
+/* COPY BUTTON */
 
 button {
     width: 100%;
@@ -94,11 +135,13 @@ button {
     font-weight: 800;
     cursor: pointer;
     transition: .2s;
+    box-shadow: 0 0 20px #1ed76022;
 }
 
 button:hover {
     background: #39f579;
     transform: scale(1.02);
+    box-shadow: 0 0 25px #1ed76066;
 }
 
 button:active {
@@ -115,27 +158,40 @@ button:active {
     color: #59645d;
     font-size: 11px;
     margin-top: 30px;
+    letter-spacing: 2px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- MATRIX CANVAS -->
+
+<canvas id="matrix"></canvas>
+
+<!-- MAIN CARD -->
+
 <div class="card">
+
     <div class="logo">♫</div>
 
     <h1>SP0TIFY CR4CK 4 WINDOWS</h1>
-    <h2>by L0RM4SS</h2>
+    <h2>BY L0RM4SS</h2>
 
     <p class="description">
-        RUN THE STRING ON PowerShell
+        RUN THE STRING ON
+        <span class="powershell">PowerShell</span>
     </p>
 
-    by <a class="instagram instagram-gradient"
-       href="https://www.instagram.com/lor.mass/"
-       target="_blank">
-       @lor.mass ↗
-    </a>
+    <div>
+        by
+        <a class="instagram"
+           href="https://www.instagram.com/lor.mass/"
+           target="_blank"
+           rel="noopener noreferrer">
+           @lor.mass ↗
+        </a>
+    </div>
 
     <button onclick="copyText()" id="copyBtn">
         COPY
@@ -144,9 +200,77 @@ button:active {
     <p id="status">Ready to copy.</p>
 
     <div class="footer">L0RM4SS • 2026</div>
+
 </div>
 
 <script>
+
+/* MATRIX ANIMATION */
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+const chars = "アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ{}[]<>/\\";
+const fontSize = 14;
+
+let columns;
+let drops;
+let animationFrame;
+
+function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    columns = Math.floor(window.innerWidth / fontSize);
+    drops = Array(columns).fill(1);
+}
+
+function drawMatrix() {
+    ctx.fillStyle = "rgba(3, 6, 4, 0.08)";
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+
+        ctx.fillStyle = Math.random() > 0.98
+            ? "#ffffff"
+            : "#00ff41";
+
+        ctx.fillText(
+            char,
+            i * fontSize,
+            drops[i] * fontSize
+        );
+
+        if (
+            drops[i] * fontSize > window.innerHeight &&
+            Math.random() > 0.975
+        ) {
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+
+    animationFrame = requestAnimationFrame(drawMatrix);
+}
+
+resize();
+drawMatrix();
+
+window.addEventListener("resize", resize);
+
+/* COPY FUNCTION */
+
 const TEXT_TO_COPY = `iwr -useb https://raw.githubusercontent.com/spicetify/cli/main/install.ps1 | iex`;
 
 async function copyText() {
@@ -155,10 +279,13 @@ async function copyText() {
 
     try {
         await navigator.clipboard.writeText(TEXT_TO_COPY);
+
         btn.textContent = "✓ COPIED!";
-        status.textContent = "Copied!";
+        status.textContent = "Copied to clipboard!";
+
     } catch {
-        status.textContent = "Unable to copy. Check your browser permissions.";
+        status.textContent = "Unable to copy. Check browser permissions.";
+        return;
     }
 
     setTimeout(() => {
@@ -166,6 +293,7 @@ async function copyText() {
         status.textContent = "Ready to copy.";
     }, 2500);
 }
+
 </script>
 
 </body>
