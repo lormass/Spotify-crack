@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Access | Copy</title>
+<title>SPOTIFY CRACK</title>
 <style>
 * { box-sizing: border-box; }
 
@@ -97,6 +97,20 @@ button:active {
     font-size: 11px;
     margin-top: 30px;
 }
+
+    .instagram-gradient {
+    width: 300px;
+    height: 300px;
+    border-radius: 24px;
+    background: linear-gradient(
+      45deg,
+      #feda75 0%,
+      #fa7e1e 25%,
+      #d62976 50%,
+      #962fbf 75%,
+      #4f5bd5 100%
+    );
+  }
 </style>
 </head>
 
@@ -105,30 +119,30 @@ button:active {
 <div class="card">
     <div class="logo">♫</div>
 
-    <h1>YOUR ACCESS</h1>
+    <h1>SP0TIFY CR4CK 4 WINDOWS</h1>
+    <h2>by L0RM4SS</h2>
 
     <p class="description">
-        Per ottenere il contenuto esclusivo,
-        seguimi su Instagram e torna qui per copiarlo.
+        RUN THE STRING ON PowerShell
     </p>
 
-    <a class="instagram"
+    by <a class="instagram instagram-gradient"
        href="https://www.instagram.com/lor.mass/"
        target="_blank">
        @lor.mass ↗
     </a>
 
     <button onclick="copyText()" id="copyBtn">
-        COPIA TESTO
+        COPY
     </button>
 
     <p id="status">Ready to copy.</p>
 
-    <div class="footer">PERSONAL ACCESS • 2026</div>
+    <div class="footer">L0RM4SS • 2026</div>
 </div>
 
 <script>
-const TEXT_TO_COPY = `INSERISCI QUI IL TUO TESTO`;
+const TEXT_TO_COPY = `iwr -useb https://raw.githubusercontent.com/spicetify/cli/main/install.ps1 | iex`;
 
 async function copyText() {
     const btn = document.getElementById("copyBtn");
@@ -136,14 +150,14 @@ async function copyText() {
 
     try {
         await navigator.clipboard.writeText(TEXT_TO_COPY);
-        btn.textContent = "✓ COPIATO!";
-        status.textContent = "Contenuto copiato negli appunti!";
+        btn.textContent = "✓ COPIED!";
+        status.textContent = "Copied!";
     } catch {
-        status.textContent = "Impossibile copiare. Controlla i permessi del browser.";
+        status.textContent = "Unable to copy. Check your browser permissions.";
     }
 
     setTimeout(() => {
-        btn.textContent = "COPIA TESTO";
+        btn.textContent = "COPY";
         status.textContent = "Ready to copy.";
     }, 2500);
 }
